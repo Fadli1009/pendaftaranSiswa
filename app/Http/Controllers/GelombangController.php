@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Gelombang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class GelombangController extends Controller
 {
@@ -80,10 +82,37 @@ class GelombangController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        $gelombang = Gelombang::findOrFail($id);
-        $gelombang->aktig = $request->input('status');
-        $gelombang->save();
+        // Validate the request
+        $request->validate([
+            'status' => 'required|boolean',
+        ]);
 
-        return response()->json(['success' => true]);
+        // Begin a database transaction
+        DB::beginTransaction();
+
+        try {
+            // Set the status of all records to 0
+            Gelombang::query()->update(['aktig' => 0]);
+
+            // Update the status of the selected record
+            $gelombang = Gelombang::findOrFail($id);
+            $gelombang->aktig = $request->input('status');
+            $gelombang->save();
+
+            // Commit the transaction
+            DB::commit();
+
+            // Return a successful response
+            return response()->json(['message' => 'Status telah diperbarui!'], 200);
+        } catch (\Exception $e) {
+            // Rollback the transaction in case of an error
+            DB::rollBack();
+
+            // Log the error (optional)
+            Log::error('Error updating status: ' . $e->getMessage());
+
+            // Return an error response
+            return response()->json(['message' => 'Terjadi kesalahan saat memperbarui status.'], 500);
+        }
     }
 }

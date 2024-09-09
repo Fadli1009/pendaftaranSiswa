@@ -65,6 +65,14 @@
 
                 console.log('ID:', id, 'Status:', status); // Debugging output
 
+                // Set status for all radio buttons to 0
+                $('.status-radio').each(function() {
+                    var otherId = $(this).data('id');
+                    if (otherId !== id) {
+                        $(this).prop('checked', false);
+                    }
+                });
+
                 // Send AJAX request to update status
                 $.ajax({
                     url: '/gelombang/' + id + '/update-status',

@@ -23,7 +23,8 @@
                         <th>Jenis Kelamin</th>
                         <th>Kejuruan</th>
                         <th>Nomor HP</th>
-                        <th>Action</th>
+                        <th>Staus</th>
+                        <th>Action </th>
                     </thead>
                     <tbody>
                         @foreach ($data as $item)
@@ -41,9 +42,6 @@
                                         @if ($item->aktig == 1) checked @endif>
                                 </td>
                                 <td>
-                                    <a href="{{ route('peserta.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                    <a href="{{ route('peserta.edit', $item->id) }}"
-                                        class="btn btn-warning btn-sm">Edit</a>
                                     <form action="{{ route('peserta.destroy', $item->id) }}" style="display: inline-block"
                                         method="POST">
                                         @csrf
@@ -52,6 +50,7 @@
                                     </form>
                                     <a href="{{ route('peserta.edit', $item->id) }}"
                                         class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="{{ route('peserta.show', $item->id) }}" class="btn btn-info btn-sm">Detail</a>
 
                                 </td>
                             </tr>
