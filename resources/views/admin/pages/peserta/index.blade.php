@@ -55,13 +55,13 @@
     </div>
     <div class="card shadow-lg">
         <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Se </h4>
+            <h4 class="mb-0">FIlter</h4>
         </div>
         <div class="card-body">
             <form action="{{ url('user-levels') }}" method="post">
                 @csrf
                 <div class="form-group row">
-                    <label for="levelSelect" class="col-sm-3 col-form-label">Level</label>
+                    <label for="levelSelect" class="col-sm-3 col-form-label">Jurusan</label>
                     <div class="col-sm-9">
                         <select name="level_id" id="levelSelect" class="form-control">
                             <option value="">Select an option</option>
