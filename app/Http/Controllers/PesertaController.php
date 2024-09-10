@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jurusan;
 use App\Models\Peserta;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,7 +15,8 @@ class PesertaController extends Controller
     public function index()
     {
         $data = Peserta::all();
-        return view('admin.pages.peserta.index', compact('data'));
+        $jurusan = Jurusan::all();
+        return view('admin.pages.peserta.index', compact('data', 'jurusan'));
     }
 
     /**
@@ -30,6 +32,7 @@ class PesertaController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $insert = Peserta::create([
             'id_jurusan' => $request->id_jurusan,
             'id_gelombang' => $request->id_gelombang,
@@ -43,13 +46,13 @@ class PesertaController extends Controller
             'nama_sekolah' => $request->nama_sekolah,
             'kejuruan' => $request->kejuruan,
             'nomorHp' => $request->nomorHp,
-            'email' => $request->aktivasi_saat_ini,
+            'email' => $request->email,
             'aktivasi_saat_ini' => $request->aktivasi_saat_ini
         ]);
         if (!$insert) {
             return redirect()->back()->with('error', 'Gagal menambahkan data');
         }
-        return redirect()->back()->with('success', 'Data berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Data berhasil ditambahkan, pantau Instagram PPKD Jakarta Pusat');
     }
 
     /**

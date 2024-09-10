@@ -23,7 +23,7 @@
                         <th>Jenis Kelamin</th>
                         <th>Kejuruan</th>
                         <th>Nomor HP</th>
-                        <th>Staus</th>
+                        <th>Status</th>
                         <th>Action </th>
                     </thead>
                     <tbody>
@@ -42,14 +42,7 @@
                                         @if ($item->aktig == 1) checked @endif>
                                 </td>
                                 <td>
-                                    <form action="{{ route('peserta.destroy', $item->id) }}" style="display: inline-block"
-                                        method="POST">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                                    </form>
-                                    <a href="{{ route('peserta.edit', $item->id) }}"
-                                        class="btn btn-warning btn-sm">Edit</a>
+
                                     <a href="{{ route('peserta.show', $item->id) }}" class="btn btn-info btn-sm">Detail</a>
 
                                 </td>
@@ -58,6 +51,35 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Se </h4>
+        </div>
+        <div class="card-body">
+            <form action="{{ url('user-levels') }}" method="post">
+                @csrf
+                <div class="form-group row">
+                    <label for="levelSelect" class="col-sm-3 col-form-label">Level</label>
+                    <div class="col-sm-9">
+                        <select name="level_id" id="levelSelect" class="form-control">
+                            <option value="">Select an option</option>
+                            @foreach ($jurusan as $lvl)
+                                <option value="{{ $lvl->id }}"
+                                    {{ isset($level) && $level->id == $lvl->id ? 'selected' : '' }}>
+                                    {{ $lvl->nama_jurusan }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <button class="btn btn-primary btn-block" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 @endsection

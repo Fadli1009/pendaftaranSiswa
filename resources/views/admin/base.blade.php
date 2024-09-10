@@ -28,7 +28,7 @@
             },
         });
     </script>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('admin/assets/css/plugins.min.css') }}" />
@@ -55,7 +55,9 @@
 
             <div class="container">
                 <div class="container-fluid">
-                    @yield('content')
+                    <div class="mt-5">
+                        @yield('content')
+                    </div>
                 </div>
             </div>
 

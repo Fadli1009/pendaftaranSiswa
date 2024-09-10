@@ -65,6 +65,24 @@
         .invalid-feedback {
             color: #dc3545;
         }
+
+        .form-check-label a {
+            color: #007bff;
+        }
+
+        .form-check-label a:hover {
+            text-decoration: underline;
+        }
+
+        .requirements-list,
+        .jurusan-list {
+            margin-bottom: 1.5rem;
+        }
+
+        .requirements-list ul,
+        .jurusan-list ul {
+            padding-left: 1.5rem;
+        }
     </style>
 </head>
 
@@ -77,6 +95,41 @@
                     {{ session('success') }}
                 </div>
             @endif
+
+            <div class="requirements-list">
+                <h4 class="mb-3">Syarat Pendaftaran:</h4>
+                <ul>
+                    <li>Warga Negara Indonesia (WNI).</li>
+                    <li>Memiliki KTP dan KK yang masih berlaku.</li>
+                    <li>Berusia minimal 18 tahun dan maksimal 35 tahun pada saat pendaftaran.</li>
+                    <li>Memiliki pendidikan minimal SD atau sederajat.</li>
+                    <li>Sehat jasmani dan rohani.</li>
+                    <li>Belum pernah mengikuti pelatihan yang sama sebelumnya.</li>
+                    <li>Memiliki komitmen untuk mengikuti seluruh rangkaian pelatihan.</li>
+                    <li>Menandatangani pernyataan kesanggupan dan persetujuan syarat dan ketentuan.</li>
+                </ul>
+            </div>
+
+            <div class="jurusan-list">
+                <h4 class="mb-3">Daftar Jurusan Pelatihan:</h4>
+                <ul>
+                    <li>Operator Komputer</li>
+                    <li>Bahasa Inggris</li>
+                    <li>Desain Grafis</li>
+                    <li>Tata Boga</li>
+                    <li>Tata Graha</li>
+                    <li>Teknik Pendingin</li>
+                    <li>Teknik Komputer</li>
+                    <li>Otomotis Sepeda Motor</li>
+                    <li>Jaringan Komputer</li>
+                    <li>Barista</li>
+                    <li>Bahasa Korea</li>
+                    <li>Makeup Artist</li>
+                    <li>Video Editor</li>
+                    <li>Content Creator</li>
+                    <li>Web Programming</li>
+                </ul>
+            </div>
             <form class="needs-validation" novalidate action="{{ route('peserta.store') }}" method="POST">
                 @csrf
                 <div class="mb-3">
@@ -112,8 +165,12 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="kejuruan" class="form-label">Kejuruan</label>
-                    <input type="text" name="kejuruan" class="form-control" id="kejuruan" placeholder="Kejuruan">
+                    <label for="kejuruan" class="form-label">Nama Sekolah</label>
+                    <input type="text" name="kejuruan" class="form-control" id="kejuruan" placeholder="Kejuruan"
+                        required>
+                    <div class="invalid-feedback">
+                        Nama Sekolah harus diisi.
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="major" class="form-label">Jurusan Pelatihan</label>
@@ -146,14 +203,14 @@
                 </div>
                 <div class="mb-3">
                     <label for="nik" class="form-label">NIK</label>
-                    <input type="text" class="form-control" name="nik" id="nik" placeholder="NIK" required>
+                    <input type="number" class="form-control" name="nik" id="nik" placeholder="NIK" required>
                     <div class="invalid-feedback">
                         NIK harus diisi.
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="kk" class="form-label">NIK KK</label>
-                    <input type="text" class="form-control" name="kartu_keluarga" id="kk"
+                    <input type="number" class="form-control" name="kartu_keluarga" id="kk"
                         placeholder="NIK KK" required>
                     <div class="invalid-feedback">
                         NIK KK harus diisi.
@@ -180,9 +237,9 @@
                     <label for="gender" class="form-label">Jenis Kelamin</label>
                     <select class="form-select" id="gender" required name="jenis_kelamin">
                         <option value="" disabled selected>Pilih Jenis Kelamin</option>
-                        <option value="male">Pria</option>
-                        <option value="female">Wanita</option>
-                        <option value="other">Lainnya</option>
+                        <option value="Pria">Pria</option>
+                        <option value="Wanita">Wanita</option>
+                        <option value="Lainnya">Lainnya</option>
                     </select>
                     <div class="invalid-feedback">
                         Pilih jenis kelamin.

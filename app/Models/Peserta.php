@@ -27,4 +27,14 @@ class Peserta extends Model
         'aktivasi_saat_ini',
         'status'
     ];
+
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class, 'id_jurusan', 'id');
+    }
+
+    public function gelombang()
+    {
+        return $this->belongsTo(Gelombang::class, 'id_gelombang', 'id');
+    }
 }

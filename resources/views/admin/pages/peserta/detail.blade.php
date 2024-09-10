@@ -1,7 +1,7 @@
 @extends('admin.base')
 
 @section('content')
-    <div class="container mt-5">
+    <div class="mt-5">
         <h2 class="text-center mb-4 text-primary">Detail Peserta Pendaftaran</h2>
 
         <div class="card border-primary mb-3">
@@ -12,11 +12,11 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>ID Jurusan:</strong>
-                        <span class="badge bg-info text-white">{{ $peserta->id_jurusan }}</span>
+                        <span class="badge bg-info text-white">{{ $peserta->jurusan->nama_jurusan }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>ID Gelombang:</strong>
-                        <span class="badge bg-info text-white">{{ $peserta->id_gelombang }}</span>
+                        <span class="badge bg-info text-white">{{ $peserta->gelombang->nama_gelombang }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>Nama Lengkap:</strong>
@@ -33,6 +33,10 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>Jenis Kelamin:</strong>
                         <span>{{ $peserta->jenis_kelamin }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>Kesibukan Saat Ini</strong>
+                        <span>{{ $peserta->aktivasi_saat_ini }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>Tempat Lahir:</strong>
