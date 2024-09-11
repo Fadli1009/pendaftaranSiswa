@@ -55,16 +55,17 @@
     </div>
     <div class="card shadow-lg">
         <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Se </h4>
+            <h4 class="mb-0">Filter Siswa</h4>
         </div>
         <div class="card-body">
-            <form action="{{ url('user-levels') }}" method="post">
+            <form action="{{ route('cari.jurusan') }}" method="post">
                 @csrf
                 <div class="form-group row">
-                    <label for="levelSelect" class="col-sm-3 col-form-label">Level</label>
-                    <div class="col-sm-9">
-                        <select name="level_id" id="levelSelect" class="form-control">
-                            <option value="">Select an option</option>
+                    <!-- Select untuk Jurusan -->
+                    <label for="levelSelect" class="col-sm-6 col-form-label">Pilih Peserta Berdasarkan Jurusan</label>
+                    <div class="col-sm-6">
+                        <select name="jurusan_id" id="levelSelect" class="form-control">
+                            <option value="">Pilih Jurusan</option>
                             @foreach ($jurusan as $lvl)
                                 <option value="{{ $lvl->id }}"
                                     {{ isset($level) && $level->id == $lvl->id ? 'selected' : '' }}>
@@ -75,8 +76,23 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <!-- Select untuk Tahun Ajaran -->
+                    <label for="yearSelect" class="col-sm-6 col-form-label">Pilih Gelombang Ajaran</label>
+                    <div class="col-sm-6">
+                        <select name="gelombang_id" id="yearSelect" class="form-control">
+                            <option value="">Pilih Gelombang Ajaran</option>
+                            @foreach ($gelombang as $year)
+                                <option value="{{ $year->id }}"
+                                    {{ isset($selectedYear) && $selectedYear == $year->id ? 'selected' : '' }}>
+                                    {{ $year->nama_gelombang }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <div class="col-sm-12">
-                        <button class="btn btn-primary btn-block" type="submit">Submit</button>
+                        <button class="btn btn-primary btn-block" type="submit">Cari</button>
                     </div>
                 </div>
             </form>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gelombang;
 use App\Models\Jurusan;
 use App\Models\Peserta;
 use App\Models\User;
@@ -16,7 +17,8 @@ class PesertaController extends Controller
     {
         $data = Peserta::all();
         $jurusan = Jurusan::all();
-        return view('admin.pages.peserta.index', compact('data', 'jurusan'));
+        $gelombang = Gelombang::all();
+        return view('admin.pages.peserta.index', compact('data', 'jurusan', 'gelombang'));
     }
 
     /**
@@ -86,5 +88,14 @@ class PesertaController extends Controller
     public function destroy(Peserta $peserta)
     {
         //
+    }
+
+    public function cariPeserta(Request $request)
+    {
+        // dd($request->all());
+        $id_gelombang = $request->input('gelombang_id');
+        $id_jurusan = $request->input('jurusan_id');
+        $peserta = Peserta::where('id_gelombang', $id_gelombang)->where('id_jurusan', $id_jurusan)->get();
+        return view('admin.pages.peserta.filterpeserta', compact('peserta'));
     }
 }
