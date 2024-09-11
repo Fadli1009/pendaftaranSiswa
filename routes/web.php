@@ -26,3 +26,4 @@ Route::middleware(['auth'])->group(function () {
 
 // Route::get('/daftar', [PendaftaranController::class,'index']);
 Route::get('/', [PendaftaranController::class, 'index']);
+Route::get('/confirm', [PendaftaranController::class, 'thanks'])->name('thanks');

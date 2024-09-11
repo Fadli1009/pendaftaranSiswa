@@ -54,7 +54,7 @@ class PesertaController extends Controller
         if (!$insert) {
             return redirect()->back()->with('error', 'Gagal menambahkan data');
         }
-        return redirect()->back()->with('success', 'Data berhasil ditambahkan, pantau Instagram PPKD Jakarta Pusat');
+        return redirect()->route('thanks')->with('success', 'Data berhasil ditambahkan, pantau Instagram PPKD Jakarta Pusat');
     }
 
     /**
@@ -93,9 +93,26 @@ class PesertaController extends Controller
     public function cariPeserta(Request $request)
     {
         // dd($request->all());
-        $id_gelombang = $request->input('gelombang_id');
-        $id_jurusan = $request->input('jurusan_id');
-        $peserta = Peserta::where('id_gelombang', $id_gelombang)->Orwhere('id_jurusan', $id_jurusan)->get();
-        return view('admin.pages.peserta.filterpeserta', compact('peserta'));
+        $jurusanId = $request->input('jurusan_id');
+        $gelombangId = $request->input('gelombang_id');
+
+        // Query untuk memfilter peserta
+        $query = Peserta::query();
+
+        if ($jurusanId) {
+            $query->where('id_jurusan', $jurusanId);
+        }
+
+        if ($gelombangId) {
+            $query->where('id_gelombang', $gelombangId);
+        }
+
+        $peserta = $query->get();
+
+        // Mengambil data jurusan dan gelombang untuk ditampilkan di form
+        $jurusan = Jurusan::all(); // Asumsikan model Jurusan ada
+        $gelombang = Gelombang::all(); // Asumsikan model Gelombang ada
+
+        return view('admin.pages.peserta.filterpeserta', compact('peserta', 'jurusan', 'gelombang'));
     }
 }

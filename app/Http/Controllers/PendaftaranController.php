@@ -14,4 +14,8 @@ class PendaftaranController extends Controller
         $gelombang = Gelombang::where('aktig', 1)->first();
         return view('form.index', compact('jurusan', 'gelombang'));
     }
+    public function thanks()
+    {
+        return view('thanks');
+    }
 }

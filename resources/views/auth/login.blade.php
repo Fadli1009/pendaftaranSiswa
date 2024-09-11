@@ -30,7 +30,11 @@
 
                                     <form method="POST" action="{{ route('action.login') }}">
                                         @csrf
-
+                                        @if (session('message'))
+                                            <div class="alert alert-danger">
+                                                {{ session('message') }}
+                                            </div>
+                                        @endif
                                         <div class="d-flex align-items-center mb-3 pb-1">
                                             <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
                                             <span class="h1 fw-bold mb-0">Login Dashboard Admin</span>
@@ -40,7 +44,7 @@
 
                                         <div data-mdb-input-init class="form-outline mb-4">
                                             <input type="email" id="form2Example17" name="email"
-                                                class="form-control form-control-lg" />
+                                                class="form-control form-control-lg" value="{{ old('email') }}" />
                                             <label class="form-label" for="form2Example17">Email address</label>
                                         </div>
 

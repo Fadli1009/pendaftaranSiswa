@@ -43,6 +43,14 @@
                         </a>
                     </li>
                 @endif
+                @if (auth()->user()->id_level == 6)
+                    <li class="nav-item {{ Request::is('peserta') ? 'active' : '' }}">
+                        <a href="{{ route('peserta.index') }}">
+                            <i class="bi bi-people-fill"></i>
+                            <p>Peserta</p>
+                        </a>
+                    </li>
+                @endif
                 @if (auth()->user()->id_level == 1)
                     <li class="nav-item {{ Request::is('peserta') ? 'active' : '' }}">
                         <a href="{{ route('peserta.index') }}">

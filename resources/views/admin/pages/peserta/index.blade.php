@@ -1,8 +1,8 @@
 @extends('admin.base')
 @section('content')
     <div class="card">
-        <div class="card-header">
-            <h1 class="card-title">Peserta</h1>
+        <div class="card-header bg-primary ">
+            <h1 class="card-title text-white">Peserta</h1>
         </div>
         <div class="card-body">
             @if (session('success'))

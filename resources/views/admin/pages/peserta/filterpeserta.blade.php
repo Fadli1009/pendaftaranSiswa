@@ -3,6 +3,9 @@
     <div class="card">
         <div class="card-header">
             <h1 class="card-title">Filter Peserta</h1>
+            <div class="d-flex justify-content-end my-3">
+                <a href="" class="btn btn-primary btn-sm">Print PDF</a>
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -14,7 +17,7 @@
                         <th>NIK</th>
                         <th>Jenis Kelamin</th>
                         <th>Jurusan</th>
-                        <th>Nomor HP</th>
+                        <th>Gelombang</th>
                         <th>Status</th>
                         <th>Action </th>
                     </thead>
@@ -27,7 +30,7 @@
                                 <td>{{ $item->nik }}</td>
                                 <td>{{ $item->jenis_kelamin }}</td>
                                 <td>{{ $item->jurusan->nama_jurusan }}</td>
-                                <td>{{ $item->nomorHp }}</td>
+                                <td>{{ $item->gelombang->nama_gelombang }}</td>
                                 <td>
                                     <!-- Radio button dengan atribut data-id -->
                                     <input type="radio" class="status-radio" name="aktif" data-id="{{ $item->id }}"
