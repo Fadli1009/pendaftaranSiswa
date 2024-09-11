@@ -95,7 +95,7 @@ class PesertaController extends Controller
         // dd($request->all());
         $id_gelombang = $request->input('gelombang_id');
         $id_jurusan = $request->input('jurusan_id');
-        $peserta = Peserta::where('id_gelombang', $id_gelombang)->where('id_jurusan', $id_jurusan)->get();
+        $peserta = Peserta::where('id_gelombang', $id_gelombang)->Orwhere('id_jurusan', $id_jurusan)->get();
         return view('admin.pages.peserta.filterpeserta', compact('peserta'));
     }
 }

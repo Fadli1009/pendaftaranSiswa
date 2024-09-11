@@ -61,10 +61,11 @@
             <form action="{{ route('cari.jurusan') }}" method="post">
                 @csrf
                 <div class="form-group row">
-                    <label for="levelSelect" class="col-sm-3 col-form-label">Jurusan</label>
-                    <div class="col-sm-9">
-                        <select name="level_id" id="levelSelect" class="form-control">
-                            <option value="">Select an option</option>
+                    <!-- Select untuk Jurusan -->
+                    <label for="levelSelect" class="col-sm-6 col-form-label">Pilih Peserta Berdasarkan Jurusan</label>
+                    <div class="col-sm-6">
+                        <select name="jurusan_id" id="levelSelect" class="form-control">
+                            <option value="">Pilih Jurusan</option>
                             @foreach ($jurusan as $lvl)
                                 <option value="{{ $lvl->id }}"
                                     {{ isset($level) && $level->id == $lvl->id ? 'selected' : '' }}>
