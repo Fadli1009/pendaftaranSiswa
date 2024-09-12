@@ -29,28 +29,28 @@
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->nik }}</td>
                                 <td>{{ $item->jenis_kelamin }}</td>
-                                <td>{{ $item->jurusan->nama_jurusan }}</td>
-                                <td>{{ $item->gelombang->nama_gelombang }}</td>
+                                <td>{{ $item->kejuruan }}</td>
+                                <td>{{ $item->nomorHp }}</td>
                                 @if (auth()->user()->id_level != 3)
-                                    <td>anda tidak memiliki hak</td>
+                                    <td>anda tidak memiliki akses</td>
+                                @else
+                                    <td>
+                                        <!-- Radio button untuk "Lolos" -->
+                                        <input type="radio" class="status-radio" name="status_{{ $item->id }}"
+                                            id="status_lolos_{{ $item->id }}" data-id="{{ $item->id }}"
+                                            value="1" @if ($item->status == 1) checked @endif>
+                                        <label for="status_lolos_{{ $item->id }}">Lolos</label>
+
+                                        <!-- Radio button untuk "Tidak Lolos" -->
+                                        <input type="radio" class="status-radio" name="status_{{ $item->id }}"
+                                            id="status_tidak_lolos_{{ $item->id }}" data-id="{{ $item->id }}"
+                                            value="0" @if ($item->status == 0) checked @endif>
+                                        <label for="status_tidak_lolos_{{ $item->id }}">Tidak Lolos</label>
+                                    </td>
                                 @endif
-                                <td>
-                                    <!-- Radio button untuk "Lolos" -->
-                                    <input type="radio" class="status-radio" name="status_{{ $item->id }}"
-                                        id="status_lolos_{{ $item->id }}" data-id="{{ $item->id }}" value="1"
-                                        @if ($item->status == 1) checked @endif>
-                                    <label for="status_lolos_{{ $item->id }}">Lolos</label>
 
-                                    <!-- Radio button untuk "Tidak Lolos" -->
-                                    <input type="radio" class="status-radio" name="status_{{ $item->id }}"
-                                        id="status_tidak_lolos_{{ $item->id }}" data-id="{{ $item->id }}"
-                                        value="0" @if ($item->status == 0) checked @endif>
-                                    <label for="status_tidak_lolos_{{ $item->id }}">Tidak Lolos</label>
-                                </td>
                                 <td>
-
                                     <a href="{{ route('peserta.show', $item->id) }}" class="btn btn-info btn-sm">Detail</a>
-
                                 </td>
                             </tr>
                         @endforeach
