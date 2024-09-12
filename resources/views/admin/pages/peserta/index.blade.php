@@ -36,18 +36,30 @@
                                 <td>{{ $item->jenis_kelamin }}</td>
                                 <td>{{ $item->kejuruan }}</td>
                                 <td>{{ $item->nomorHp }}</td>
-                                <td>
-                                    <!-- Radio button dengan atribut data-id -->
-                                    <input type="radio" class="status-radio" name="aktif" data-id="{{ $item->id }}"
-                                        @if ($item->aktig == 1) checked @endif>
-                                </td>
-                                <td>
+                                @if (auth()->user()->id_level != 3)
+                                    <td>anda tidak memiliki akses</td>
+                                @else
+                                    <td>
+                                        <!-- Radio button untuk "Lolos" -->
+                                        <input type="radio" class="status-radio" name="status_{{ $item->id }}"
+                                            id="status_lolos_{{ $item->id }}" data-id="{{ $item->id }}"
+                                            value="1" @if ($item->status == 1) checked @endif>
+                                        <label for="status_lolos_{{ $item->id }}">Lolos</label>
 
+                                        <!-- Radio button untuk "Tidak Lolos" -->
+                                        <input type="radio" class="status-radio" name="status_{{ $item->id }}"
+                                            id="status_tidak_lolos_{{ $item->id }}" data-id="{{ $item->id }}"
+                                            value="0" @if ($item->status == 0) checked @endif>
+                                        <label for="status_tidak_lolos_{{ $item->id }}">Tidak Lolos</label>
+                                    </td>
+                                @endif
+
+                                <td>
                                     <a href="{{ route('peserta.show', $item->id) }}" class="btn btn-info btn-sm">Detail</a>
-
                                 </td>
                             </tr>
                         @endforeach
+
                     </tbody>
                 </table>
             </div>
@@ -104,34 +116,27 @@
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
     <script>
         $(document).ready(function() {
-            // Initialize DataTable
             $("#basic-datatables").DataTable({});
-
-            // Handle radio button change event
             $('.status-radio').on('change', function() {
-                var radio = $(this);
-                var id = radio.data('id');
-                var status = radio.is(':checked') ? 1 : 0;
+                var itemId = $(this).data('id');
+                var status = $(this).val();
+                console.log('Item ID:', itemId);
+                console.log('Status:', status);
 
-                console.log('ID:', id, 'Status:', status); // Debugging output
-
-                // Send AJAX request to update status
                 $.ajax({
-                    url: '/gelombang/' + id + '/update-status',
+                    url: `/peserta/${itemId}/seleksi`,
                     method: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',
                         status: status
                     },
                     success: function(response) {
-                        // Handle success response
-                        console.log('Success:', response); // Debugging output
-                        alert('Status telah diperbarui!');
+                        console.log('Response:', response); // Log response for debugging
+                        alert('Peserta berhasil diseleksi');
                     },
                     error: function(xhr) {
-                        // Handle error response
-                        console.log('Error:', xhr); // Debugging output
-                        alert('Terjadi kesalahan saat memperbarui status.');
+                        console.log('XHR:', xhr); // Log xhr object for debugging
+                        alert('Error: ' + xhr.status + ' ' + xhr.statusText);
                     }
                 });
             });

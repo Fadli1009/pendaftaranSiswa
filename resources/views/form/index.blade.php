@@ -184,7 +184,7 @@
                         Kejuruan harus diisi.
                     </div>
                 </div>
-                <input type="hidden" name="id_gelombang" value="{{ $gelombang->id }}">
+                <input type="hidden" name="id_gelombang" value="{{ $gelombang->id ?? '' }}">
                 <div class="mb-3">
                     <label for="currentActivity" class="form-label">Kegiatan Saat Ini</label>
                     <input type="text" name="aktivasi_saat_ini" class="form-control" id="currentActivity"

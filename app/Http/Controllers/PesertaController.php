@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gelombang;
+use App\Models\User;
 use App\Models\Jurusan;
 use App\Models\Peserta;
-use App\Models\User;
+use App\Models\Gelombang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class PesertaController extends Controller
 {
@@ -112,7 +114,46 @@ class PesertaController extends Controller
         // Mengambil data jurusan dan gelombang untuk ditampilkan di form
         $jurusan = Jurusan::all(); // Asumsikan model Jurusan ada
         $gelombang = Gelombang::all(); // Asumsikan model Gelombang ada
-
         return view('admin.pages.peserta.filterpeserta', compact('peserta', 'jurusan', 'gelombang'));
+    }
+    public function printPDF(Request $request)
+    {
+        $jurusanId = $request->input('jurusan_id');
+        $gelombangId = $request->input('gelombang_id');
+
+        // Query untuk memfilter peserta
+        $query = Peserta::query();
+
+        if ($jurusanId) {
+            $query->where('id_jurusan', $jurusanId);
+        }
+
+        if ($gelombangId) {
+            $query->where('id_gelombang', $gelombangId);
+        }
+
+        $peserta = $query->get();
+
+        // Mengambil data jurusan dan gelombang untuk ditampilkan di form
+        $jurusan = Jurusan::all(); // Asumsikan model Jurusan ada
+        $gelombang = Gelombang::all(); // Asumsikan model Gelombang ada
+        dd($peserta);
+    }
+    public function updatePeserta(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|boolean',
+        ]);
+        try {
+            $peserta = Peserta::find($id);
+            $peserta->status = $request->input('status');
+            $peserta->save();
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()]);
+        }
+        // Validate the request
+
+        // Begin a database transaction
+
     }
 }

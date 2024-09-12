@@ -26,9 +26,9 @@
                         @foreach ($data as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->level->nama_role }}</td>
-                                <td>{{ $item->nama_lengkap }}</td>
-                                <td>{{ $item->email }}</td>
+                                <td>{{ $item->level->nama_role ?? '' }}</td>
+                                <td>{{ $item->nama_lengkap ?? '' }}</td>
+                                <td>{{ $item->email ?? '' }}</td>
 
                                 <td>
                                     <a href="{{ route('users.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
