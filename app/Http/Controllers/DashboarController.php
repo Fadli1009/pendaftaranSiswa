@@ -18,4 +18,14 @@ class DashboarController extends Controller
         $jurusan = Jurusan::count();
         return view('admin.pages.dashboard.index', compact('peserta', 'pesertaLolos', 'pesertaTdkLolos', 'petugas', 'jurusan'));
     }
+    public function pesertTidakLolos()
+    {
+        $peserta = Peserta::where('status', 0)->get();
+        return view('admin.pages.dashboard.statusPeserta', compact('peserta'));
+    }
+    public function pesertaLolos()
+    {
+        $peserta = Peserta::where('status', 1)->get();
+        return view('admin.pages.dashboard.statusPeserta', compact('peserta'));
+    }
 }

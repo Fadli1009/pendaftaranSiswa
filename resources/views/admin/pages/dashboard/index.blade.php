@@ -22,7 +22,9 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
+
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
@@ -39,6 +41,12 @@
                                         <p class="card-category">Total Peserta Lolos</p>
                                         <h4 class="card-title">{{ $pesertaLolos }}</h4>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 text-center">
+                                    <a href="{{ route('lolos') }}" class="btn btn-primary btn-sm">Baca
+                                        Selengkapnya</a>
                                 </div>
                             </div>
                         </div>
@@ -60,10 +68,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row mt-3">
+                                <div class="col-12 text-center">
+                                    <a href="{{ route('tidakLolos') }}" class="btn btn-primary btn-sm">Baca
+                                        Selengkapnya</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-sm-6 col-md-3">
                     <div class="card card-stats card-secondary card-round">
                         <div class="card-body">

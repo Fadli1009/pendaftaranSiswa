@@ -14,6 +14,8 @@ Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::get('logout', [LoginController::class, 'index'])->name('logout');
 Route::post('login', [LoginController::class, 'actionLogin'])->name('action.login');
 Route::middleware(['auth'])->group(function () {
+    Route::get('peserta/tidaklolos', [DashboarController::class, 'pesertTidakLolos'])->name('tidakLolos');
+    Route::get('peserta/lolos', [DashboarController::class, 'pesertaLolos'])->name('lolos');
     Route::get('/dashboard', [DashboarController::class, 'index'])->name('dashboard');
     Route::get('/datapeserta', [PesertaController::class, 'printPDF']);
     Route::post('/gelombang/{id}/update-status', [GelombangController::class, 'updateStatus'])->name('gelombang.updateStatus');

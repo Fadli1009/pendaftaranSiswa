@@ -12,59 +12,59 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>ID Jurusan:</strong>
-                        <span class="badge bg-info text-white">{{ $peserta->jurusan->nama_jurusan }}</span>
+                        <span class="badge bg-info text-white">{{ $peserta->jurusan->nama_jurusan ?? '' }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>ID Gelombang:</strong>
-                        <span class="badge bg-info text-white">{{ $peserta->gelombang->nama_gelombang }}</span>
+                        <span class="badge bg-info text-white">{{ $peserta->gelombang->nama_gelombang ?? '' }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>Nama Lengkap:</strong>
-                        <span>{{ $peserta->nama_lengkap }}</span>
+                        <span>{{ $peserta->nama_lengkap ?? '' }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>NIK:</strong>
-                        <span class="badge bg-info text-white">{{ $peserta->nik }}</span>
+                        <span class="badge bg-info text-white">{{ $peserta->nik ?? '' }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>Kartu Keluarga:</strong>
-                        <span class="badge bg-info text-white">{{ $peserta->kartu_keluarga }}</span>
+                        <span class="badge bg-info text-white">{{ $peserta->kartu_keluarga ?? 'Tidak Ada' }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>Jenis Kelamin:</strong>
-                        <span>{{ $peserta->jenis_kelamin }}</span>
+                        <span>{{ $peserta->jenis_kelamin ?? 'Tidak Ada' }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>Kesibukan Saat Ini</strong>
-                        <span>{{ $peserta->aktivasi_saat_ini }}</span>
+                        <span>{{ $peserta->aktivasi_saat_ini ?? 'Tidak Ada' }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>Tempat Lahir:</strong>
-                        <span>{{ $peserta->tempat_lahir }}</span>
+                        <span>{{ $peserta->tempat_lahir ?? 'Tidak Ada' }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>Tanggal Lahir:</strong>
-                        <span>{{ \Carbon\Carbon::parse($peserta->tanggal_lahir)->format('d-m-Y') }}</span>
+                        <span>{{ \Carbon\Carbon::parse($peserta->tanggal_lahir)->format('d-m-Y') ?? 'Tidak Ada' }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>Pendidikan Terakhir:</strong>
-                        <span>{{ $peserta->pendidikan_terakhir }}</span>
+                        <span>{{ $peserta->pendidikan_terakhir ?? 'Tidak Ada' }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>Nama Sekolah:</strong>
-                        <span>{{ $peserta->nama_sekolah }}</span>
+                        <span>{{ $peserta->nama_sekolah ?? 'Tidak Ada' }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>Kejuruan:</strong>
-                        <span>{{ $peserta->kejuruan }}</span>
+                        <span>{{ $peserta->kejuruan ?? 'Tidak Ada' }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>Nomor HP:</strong>
-                        <span>{{ $peserta->nomorHp }}</span>
+                        <span>{{ $peserta->nomorHp ?? 'Tidak Ada' }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>Email:</strong>
-                        <span>{{ $peserta->email }}</span>
+                        <span>{{ $peserta->email ?? 'Tidak Ada' }}</span>
                     </li>
                 </ul>
             </div>
