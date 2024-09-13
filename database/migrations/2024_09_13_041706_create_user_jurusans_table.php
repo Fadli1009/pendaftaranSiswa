@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->softDeletes();
-            
+        Schema::create('user_jurusans', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('id_level');
+            $table->foreign('id_level')->references('id')->on('roles');
+            $table->timestamps();
         });
     }
 
@@ -22,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('user_jurusans');
     }
 };

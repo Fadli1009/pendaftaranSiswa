@@ -18,9 +18,18 @@
                 <div class="form-group">
                     <label for="email" class="form-label">Role</label>
                     <select class="form-select form-control" id="defaultSelect" name="id_level">
-                        <option value=""selected>Pilih Role User</option>
+                        <option value=""selected>Pilih Role User </option>
                         @foreach ($level as $item)
                             <option value="{{ $item->id }}">{{ $item->nama_role }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group" id="jurusanPIC" style="display: none;">
+                    <label for="email" class="form-label">PIC Jurusan</label>
+                    <select class="form-select form-control" name="id_jurusan">
+                        <option value=""selected>Pilih Jurusan PIC </option>
+                        @foreach ($jurusan as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama_jurusan }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -34,4 +43,20 @@
             </form>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#defaultSelect').on('change', function() {
+                var selectedValue = $(this).val();
+                console.log(selectedValue);
+
+                if (selectedValue === '2') {
+                    $('#jurusanPIC').show();
+                } else {
+                    $('#jurusanPIC').hide();
+                }
+            })
+        })
+    </script>
 @endsection

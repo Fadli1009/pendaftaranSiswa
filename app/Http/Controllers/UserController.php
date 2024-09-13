@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jurusan;
 use App\Models\Roles;
 use App\Models\User;
+use App\Models\UserJurusan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -24,7 +26,8 @@ class UserController extends Controller
     public function create()
     {
         $level = Roles::all();
-        return view('admin.pages.users.create', compact('level'));
+        $jurusan = Jurusan::all();
+        return view('admin.pages.users.create', compact('level', 'jurusan'));
     }
 
     /**
@@ -41,6 +44,10 @@ class UserController extends Controller
         $val['password'] = Hash::make($val['password']);
         // dd($val);
         User::create($val);
+        UserJurusan::create([
+            'id_level' => $val['id_level'],
+            'id_jurusan' => $request->id_jurusan
+        ]);
         return redirect()->route('users.index')->with('success', 'Data Berhasil Ditambahkan');
     }
 
@@ -59,7 +66,11 @@ class UserController extends Controller
     {
         $level = Roles::all();
         $users = User::find($id);
-        return view('admin.pages.users.edit', compact('users', 'level'));
+        $jurusan = Jurusan::all();
+        $selectJurusan = UserJurusan::where('id_level', $users->id_level)->first();
+        // dd($selectJurusan->id_jurusan);
+        // $cek = UserJurusan
+        return view('admin.pages.users.edit', compact('users', 'level', 'jurusan', 'selectJurusan'));
     }
 
     /**
