@@ -29,14 +29,18 @@
                 </div>
                 <div class="form-group" id="jurusanPIC" style="display: none;">
                     <label for="email" class="form-label">PIC Jurusan</label>
-                    <select class="form-select form-control" name="id_jurusan">
-                        <option value=""selected>Pilih Jurusan PIC </option>
-                        @foreach ($jurusan as $item)
-                            <option value="{{ $item->id }}"
-                                {{ $item->id == $selectJurusan->id_jurusan ? 'selected' : '' }}>
-                                {{ $item->nama_jurusan }}</option>
+                    <select name="id_jurusan" id="levelSelect" class="form-control">
+                        <option value="">Pilih Jurusan</option>
+                        @foreach ($jurusan as $lvl)
+                            <option value="{{ $lvl->id }}"
+                                {{ isset($selectJurusan->jurusan) && $lvl->id == $selectJurusan->jurusan->id ? 'selected' : '' }}>
+                                {{ $lvl->nama_jurusan ?? '' }}
+                            </option>
                         @endforeach
+
                     </select>
+
+
                 </div>
                 <div class="form-group">
                     <label for="password" class="form-label">Password</label>

@@ -43,10 +43,11 @@ class UserController extends Controller
         ]);
         $val['password'] = Hash::make($val['password']);
         // dd($val);
-        User::create($val);
+        $user =  User::create($val);
         UserJurusan::create([
             'id_level' => $val['id_level'],
-            'id_jurusan' => $request->id_jurusan
+            'id_jurusan' => $request->id_jurusan,
+            'id_user' => $user->id
         ]);
         return redirect()->route('users.index')->with('success', 'Data Berhasil Ditambahkan');
     }
@@ -67,9 +68,8 @@ class UserController extends Controller
         $level = Roles::all();
         $users = User::find($id);
         $jurusan = Jurusan::all();
-        $selectJurusan = UserJurusan::where('id_level', $users->id_level)->first();
-        // dd($selectJurusan->id_jurusan);
-        // $cek = UserJurusan
+        $selectJurusan = UserJurusan::where('id_user', $users->id)->first();
+        // dd($selectJurusan->jurusan->id);
         return view('admin.pages.users.edit', compact('users', 'level', 'jurusan', 'selectJurusan'));
     }
 
@@ -83,13 +83,16 @@ class UserController extends Controller
             'email' => 'required',
             'id_level' => 'required',
             'nama_lengkap' => 'required',
-            'password' => 'nullable'
+            'password' => 'nullable',
+            'id_jurusan' => 'nullable'
         ]);
         if ($request->filled('password')) {
             $val['password'] = Hash::make($val['password']);
         } else {
             unset($val['password']);
         }
+        $userJurusan = UserJurusan::where('id_user', $users->id);
+        $userJurusan->update(['id_jurusan' => $val['id_jurusan']]);
         $users->update($val);
         return redirect()->route('users.index')->with('success', 'Data Berhasil Diubah');
     }
