@@ -12,7 +12,7 @@
             @endif
             <div class="d-flex justify-content-end my-3">
                 <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm me-2">Tambah Users</a>
-                <a href="{{ route('users.create') }}" class="btn btn-danger btn-sm">Recyle Users</a>
+                <a href="{{ route('user.recycle') }}" class="btn btn-danger btn-sm">Recyle Users</a>
             </div>
             <div class="table-responsive">
                 <table class="display table table-striped table-hover" id="basic-datatables">

@@ -72,4 +72,21 @@ class JurusanController extends Controller
         $jurusan->delete();
         return redirect()->route('jurusan.index')->with('success', 'Data Berhasil Dihapus');
     }
+    public function jurusan_recycle()
+    {
+        $data = Jurusan::onlyTrashed()->get();
+        return view('admin.pages.jurusan.recycle', compact('data'));
+    }
+    public function restore($id)
+    {
+        $user = Jurusan::withTrashed()->where('id', $id)->first();
+        $user->restore();
+        return redirect()->route('jurusan.recycle')->with('success', 'Data Berhasil Dipulihkan');
+    }
+    public function deletePermanent($id)
+    {
+        $user = Jurusan::withTrashed()->where('id', $id)->first();
+        $user->forceDelete();
+        return redirect()->route('jurusan.recycle')->with('success', 'Data Berhasil Dihapus Permanen');
+    }
 }

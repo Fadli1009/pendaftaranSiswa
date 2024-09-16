@@ -11,7 +11,8 @@
                 </div>
             @endif
             <div class="d-flex justify-content-end my-3">
-                <a href="{{ route('gelombang.create') }}" class="btn btn-primary btn-sm">Tambah Gelombang</a>
+                <a href="{{ route('gelombang.create') }}" class="btn btn-primary btn-sm me-2">Tambah Gelombang</a>
+                <a href="{{ route('gelombang.recycle') }}" class="btn btn-danger btn-sm">Recycle Gelombang</a>
             </div>
             <div class="table-responsive">
                 <table class="display table table-striped table-hover" id="basic-datatables">

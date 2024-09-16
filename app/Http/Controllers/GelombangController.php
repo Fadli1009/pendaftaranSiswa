@@ -115,4 +115,21 @@ class GelombangController extends Controller
             return response()->json(['message' => 'Terjadi kesalahan saat memperbarui status.'], 500);
         }
     }
+    public function gelombang_recycle()
+    {
+        $data = Gelombang::onlyTrashed()->get();
+        return view('admin.pages.gelombang.reycle', compact('data'));
+    }
+    public function restore($id)
+    {
+        $user = Gelombang::withTrashed()->where('id', $id)->first();
+        $user->restore();
+        return redirect()->route('gelombang.recycle')->with('success', 'Data Berhasil Dipulihkan');
+    }
+    public function deletePermanent($id)
+    {
+        $user = Gelombang::withTrashed()->where('id', $id)->first();
+        $user->forceDelete();
+        return redirect()->route('gelombang.recycle')->with('success', 'Data Berhasil Dihapus Permanen');
+    }
 }

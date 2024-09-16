@@ -1,76 +1,60 @@
 @extends('admin.base')
+
 @section('content')
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Tambah Users Baru</h3>
+    <form action="{{ route('users.update', $user->id) }}" method="POST">
+        @csrf
+        @method('PUT')
+
+        <div class="form-group">
+            <label for="nama_lengkap">Nama Lengkap</label>
+            <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap"
+                value="{{ old('nama_lengkap', $user->nama_lengkap) }}" required>
         </div>
-        <div class="card-body">
-            <form action="{{ route('users.update', $users->id) }}" method="post">
-                @csrf
-                @method('put')
-                <div class="form-group">
-                    <label for="nama" class="form-label">Nama Lengkap</label>
-                    <input type="text" class="form-control" name="nama_lengkap" id="nama"
-                        value="{{ $users->nama_lengkap }}">
-                </div>
-                <div class="form-group">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="text" class="form-control" name="email" id="email" value="{{ $users->email }}">
-                </div>
-                <div class="form-group">
-                    <label for="email" class="form-label">Role</label>
-                    <select class="form-select form-control" id="defaultSelect" name="id_level">
-                        <option value=""selected>Pilih Role User</option>
-                        @foreach ($level as $item)
-                            <option value="{{ $item->id }}" {{ $item->id == $users->id_level ? 'selected' : '' }}>
-                                {{ $item->nama_role }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group" id="jurusanPIC" style="display: none;">
-                    <label for="email" class="form-label">PIC Jurusan</label>
-                    <select name="id_jurusan" id="levelSelect" class="form-control">
-                        <option value="">Pilih Jurusan</option>
-                        @foreach ($jurusan as $lvl)
-                            <option value="{{ $lvl->id }}"
-                                {{ isset($selectJurusan->jurusan) && $lvl->id == $selectJurusan->jurusan->id ? 'selected' : '' }}>
-                                {{ $lvl->nama_jurusan ?? '' }}
-                            </option>
-                        @endforeach
 
-                    </select>
-
-
-                </div>
-                <div class="form-group">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" name="password" id="password">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
-                </div>
-            </form>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email"
+                value="{{ old('email', $user->email) }}" required>
         </div>
-    </div>
+
+        <div class="form-group">
+            <label for="id_level">Role</label>
+            <select class="form-control" id="id_level" name="id_level" required>
+                @foreach ($levels as $level)
+                    <option value="{{ $level->id }}"
+                        {{ old('id_level', $user->id_level) == $level->id ? 'selected' : '' }}>
+                        {{ $level->nama_role }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="form-group" id="jurusanPIC" style="{{ old('id_level', $user->id_level) == 2 ? '' : 'display: none;' }}">
+            <label for="id_jurusan">PIC Jurusan</label>
+            <select class="form-control" id="id_jurusan" name="id_jurusan[]" multiple>
+                @foreach ($jurusan as $j)
+                    <option value="{{ $j->id }}"
+                        {{ in_array($j->id, old('id_jurusan', $selectedJurusan)) ? 'selected' : '' }}>
+                        {{ $j->nama_jurusan }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password (biarkan kosong jika tidak ingin mengubah)</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
 @endsection
-@section('scripts')
+
+@push('scripts')
     <script>
-        $(document).ready(function() {
-            var initialValue = $('#defaultSelect').val()
-            if (initialValue === '2') {
-                $('#jurusanPIC').show();
-            }
-            $('#defaultSelect').on('change', function() {
-                var selectedValue = $(this).val();
-                console.log(selectedValue);
-
-                if (selectedValue === '2') {
-                    $('#jurusanPIC').show();
-                } else {
-                    $('#jurusanPIC').hide();
-                }
-            })
-
-        })
+        document.getElementById('id_level').addEventListener('change', function() {
+            var jurusanPIC = document.getElementById('jurusanPIC');
+            jurusanPIC.style.display = this.value == 2 ? '' : 'none';
+        });
     </script>
-@endsection
+@endpush

@@ -23,16 +23,9 @@ class User extends Authenticatable
         'nama_lengkap',
         'password',
     ];
-    public function jurusans()
+    public function jurusan()
     {
-        return $this->hasManyThrough(
-            Jurusan::class,        // Model tujuan (Jurusan)
-            UserJurusan::class,    // Model perantara (UserJurusan)
-            'id_level',            // Foreign key pada UserJurusan yang mereferensi tabel levels
-            'id',                  // Foreign key pada Jurusan yang mereferensi UserJurusan
-            'id_level',            // Local key pada users
-            'id_jurusan'           // Foreign key pada UserJurusan yang mereferensi tabel jurusan
-        );
+        return $this->belongsToMany(Jurusan::class, 'user_jurusans', 'id_user', 'id_jurusan')->onDelete('cascade');
     }
     public function level()
     {

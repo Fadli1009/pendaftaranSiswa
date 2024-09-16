@@ -75,4 +75,21 @@ class RolesController extends Controller
         $roles->delete();
         return redirect()->route('role.index')->with('success', 'Data Berhasil Dihapus');
     }
+    public function role_recycle()
+    {
+        $role = Roles::onlyTrashed()->get();
+        return view('admin.pages.role.recycle', compact('role'));
+    }
+    public function restore($id)
+    {
+        $user = Roles::withTrashed()->where('id', $id)->first();
+        $user->restore();
+        return redirect()->route('role.recycle')->with('success', 'Data Berhasil Dipulihkan');
+    }
+    public function deletePermanent($id)
+    {
+        $user = Roles::withTrashed()->where('id', $id)->first();
+        $user->forceDelete();
+        return redirect()->route('role.recycle')->with('success', 'Data Berhasil Dihapus Permanen');
+    }
 }

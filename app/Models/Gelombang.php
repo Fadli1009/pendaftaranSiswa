@@ -11,4 +11,8 @@ class Gelombang extends Model
     use HasFactory, SoftDeletes;
     protected $fillable = ['nama_gelombang', 'aktig'];
     protected $table = 'gelombang';
+    public function peserta()
+    {
+        return $this->hasOne(Peserta::class, 'id_gelombang', 'id');
+    }
 }
