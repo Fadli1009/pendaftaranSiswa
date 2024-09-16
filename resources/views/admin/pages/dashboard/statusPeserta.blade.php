@@ -52,29 +52,6 @@
     <script>
         $(document).ready(function() {
             $("#basic-datatables").DataTable({});
-            $('.status-radio').on('change', function() {
-                var itemId = $(this).data('id');
-                var status = $(this).val();
-                console.log('Item ID:', itemId);
-                console.log('Status:', status);
-
-                $.ajax({
-                    url: `/peserta/${itemId}/seleksi`,
-                    method: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        status: status
-                    },
-                    success: function(response) {
-                        console.log('Response:', response); // Log response for debugging
-                        alert('Peserta berhasil diseleksi');
-                    },
-                    error: function(xhr) {
-                        console.log('XHR:', xhr); // Log xhr object for debugging
-                        alert('Error: ' + xhr.status + ' ' + xhr.statusText);
-                    }
-                });
-            });
         });
     </script>
 @endsection

@@ -27,7 +27,7 @@
                         <th>Action </th>
                     </thead>
                     <tbody>
-                        @foreach ($data as $item)
+                        @foreach ($peserta as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->nama_lengkap }}</td>

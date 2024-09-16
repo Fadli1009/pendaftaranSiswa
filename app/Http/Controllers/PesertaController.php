@@ -6,9 +6,11 @@ use App\Models\User;
 use App\Models\Jurusan;
 use App\Models\Peserta;
 use App\Models\Gelombang;
+use App\Models\UserJurusan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class PesertaController extends Controller
 {
@@ -17,12 +19,20 @@ class PesertaController extends Controller
      */
     public function index()
     {
-        $data = Peserta::all();
+        $userId = Auth::user()->id;
+        $userLevel = Auth::user()->id_level;
         $jurusan = Jurusan::all();
         $gelombang = Gelombang::all();
-        return view('admin.pages.peserta.index', compact('data', 'jurusan', 'gelombang'));
-    }
 
+        if ($userLevel === 2) {
+            $userJurusanIds = UserJurusan::where('id_user', $userId)->pluck('id_jurusan');
+            $peserta = Peserta::whereIn('id_jurusan', $userJurusanIds)->get();
+        } else {
+            $peserta = Peserta::all();
+        }
+
+        return view('admin.pages.peserta.index', compact('peserta', 'jurusan', 'gelombang'));
+    }
     /**
      * Show the form for creating a new resource.
      */
