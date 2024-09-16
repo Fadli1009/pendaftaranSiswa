@@ -5,6 +5,11 @@
             <div class="card-title">Dashboard</div>
         </div>
         <div class="card-body">
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
             <div class="row">
                 <div class="col-sm-6 col-md-3">
                     <div class="card card-stats card-primary card-round">

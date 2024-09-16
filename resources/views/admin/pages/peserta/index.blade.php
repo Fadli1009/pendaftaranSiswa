@@ -55,7 +55,14 @@
                                 @endif
 
                                 <td>
-                                    <a href="{{ route('peserta.show', $item->id) }}" class="btn btn-info btn-sm">Detail</a>
+                                    <a href="{{ route('peserta.show', $item->id) }}"
+                                        class="btn btn-info btn-sm d-inline">Detail</a>
+                                    @if (auth()->user()->id_level == 2)
+                                        <a href="https://wa.me/{{ $item->nomorHp }}" target="_blank" class="btn btn-sm"
+                                            style="background-color: #25D366; color: #fff;">
+                                            <i class="bi bi-whatsapp"></i> WhatsApp
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
