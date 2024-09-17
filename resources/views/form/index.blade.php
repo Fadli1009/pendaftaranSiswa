@@ -130,7 +130,11 @@
 <body>
     <div class="container">
         <div class="form-container">
-            <h2>Form Pendaftaran PPKD Jakpus</h2>
+            <div class="d-flex justify-content-between align-items-center mb-5">
+                <img src="{{ asset('admin/assets/img/logo.png') }}" width="100" alt="">
+                <h2>Form Pendaftaran PPKD Jakpus</h2>
+                <img src="{{ asset('admin/assets/img/logo.png') }}" width="100" alt="">
+            </div>
 
             @if (session('success'))
                 <div class="alert alert-success">
@@ -157,21 +161,10 @@
             <div class="card">
                 <h4>Daftar Jurusan Pelatihan:</h4>
                 <ul>
-                    <li>Operator Komputer</li>
-                    <li>Bahasa Inggris</li>
-                    <li>Desain Grafis</li>
-                    <li>Tata Boga</li>
-                    <li>Tata Graha</li>
-                    <li>Teknik Pendingin</li>
-                    <li>Teknik Komputer</li>
-                    <li>Otomotis Sepeda Motor</li>
-                    <li>Jaringan Komputer</li>
-                    <li>Barista</li>
-                    <li>Bahasa Korea</li>
-                    <li>Makeup Artist</li>
-                    <li>Video Editor</li>
-                    <li>Content Creator</li>
-                    <li>Web Programming</li>
+                    @foreach ($jurusan as $item)
+                        <li>{{ $item->nama_jurusan }}</li>
+                    @endforeach
+
                 </ul>
             </div>
 

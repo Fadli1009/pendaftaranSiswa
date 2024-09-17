@@ -72,51 +72,53 @@
             </div>
         </div>
     </div>
-    <div class="card shadow-lg">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Filter Siswa</h4>
+    @if (auth()->user()->id_level != 2)
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Filter Siswa</h4>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('cari.jurusan') }}" method="post">
+                    @csrf
+                    <div class="form-group row">
+                        <!-- Select untuk Jurusan -->
+                        <label for="levelSelect" class="col-sm-6 col-form-label">Pilih Peserta Berdasarkan Jurusan</label>
+                        <div class="col-sm-6">
+                            <select name="jurusan_id" id="levelSelect" class="form-control">
+                                <option value="">Pilih Jurusan</option>
+                                @foreach ($jurusan as $lvl)
+                                    <option value="{{ $lvl->id }}"
+                                        {{ isset($level) && $level->id == $lvl->id ? 'selected' : '' }}>
+                                        {{ $lvl->nama_jurusan }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <!-- Select untuk Tahun Ajaran -->
+                        <label for="yearSelect" class="col-sm-6 col-form-label">Pilih Gelombang Ajaran</label>
+                        <div class="col-sm-6">
+                            <select name="gelombang_id" id="yearSelect" class="form-control">
+                                <option value="">Pilih Gelombang Ajaran</option>
+                                @foreach ($gelombang as $year)
+                                    <option value="{{ $year->id }}"
+                                        {{ isset($selectedYear) && $selectedYear == $year->id ? 'selected' : '' }}>
+                                        {{ $year->nama_gelombang }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <button class="btn btn-primary btn-block" type="submit">Cari</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="card-body">
-            <form action="{{ route('cari.jurusan') }}" method="post">
-                @csrf
-                <div class="form-group row">
-                    <!-- Select untuk Jurusan -->
-                    <label for="levelSelect" class="col-sm-6 col-form-label">Pilih Peserta Berdasarkan Jurusan</label>
-                    <div class="col-sm-6">
-                        <select name="jurusan_id" id="levelSelect" class="form-control">
-                            <option value="">Pilih Jurusan</option>
-                            @foreach ($jurusan as $lvl)
-                                <option value="{{ $lvl->id }}"
-                                    {{ isset($level) && $level->id == $lvl->id ? 'selected' : '' }}>
-                                    {{ $lvl->nama_jurusan }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <!-- Select untuk Tahun Ajaran -->
-                    <label for="yearSelect" class="col-sm-6 col-form-label">Pilih Gelombang Ajaran</label>
-                    <div class="col-sm-6">
-                        <select name="gelombang_id" id="yearSelect" class="form-control">
-                            <option value="">Pilih Gelombang Ajaran</option>
-                            @foreach ($gelombang as $year)
-                                <option value="{{ $year->id }}"
-                                    {{ isset($selectedYear) && $selectedYear == $year->id ? 'selected' : '' }}>
-                                    {{ $year->nama_gelombang }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-12">
-                        <button class="btn btn-primary btn-block" type="submit">Cari</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+    @endif
 @endsection
 
 @section('scripts')
