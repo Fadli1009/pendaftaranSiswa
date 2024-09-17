@@ -11,7 +11,7 @@
                 <div class="form-group">
                     <label for="nama" class="form-label">Nama Role</label>
                     <input type="text" class="form-control" name="nama_gelombang" id="nama"
-                        value="{{ $roles->nama_gelombang }}">
+                        value="{{ $roles  nama_gelombang }}">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-sm">Simpan</button>

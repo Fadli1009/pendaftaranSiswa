@@ -26,8 +26,9 @@ class PesertaController extends Controller
 
         if ($userLevel === 2) {
             $userJurusanIds = UserJurusan::where('id_user', $userId)->pluck('id_jurusan');
-            $pesertas = Peserta::whereIn('id_jurusan', $userJurusanIds)->get();
-            $peserta = $pesertas->where('status', 1);
+            $pesertas = Peserta::whereIn('id_jurusan', $userJurusanIds);
+            $peserta = $pesertas->where('status', 1)->get();
+            // dd($peserta);
         } else {
             $peserta = Peserta::all();
         }
@@ -166,5 +167,19 @@ class PesertaController extends Controller
 
         // Begin a database transaction
 
+    }
+    public function updateStatus(Request $request, $id)
+    {
+        $peserta = Peserta::find($id);
+
+        if (!$peserta) {
+            return response()->json(['message' => 'Peserta tidak ditemukan'], 404);
+        }
+
+        $peserta->update([
+            'confirm' => 1 // Menandakan bahwa peserta sudah terdaftar
+        ]);
+
+        return response()->json(['message' => 'Status peserta berhasil diupdate']);
     }
 }

@@ -15,6 +15,7 @@ Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::get('logout', [LoginController::class, 'index'])->name('logout');
 Route::post('login', [LoginController::class, 'actionLogin'])->name('action.login');
 Route::middleware(['auth'])->group(function (): void {
+
     Route::get('peserta/tidaklolos', [DashboarController::class, 'pesertTidakLolos'])->name('tidakLolos');
     Route::get('peserta/lolos', [DashboarController::class, 'pesertaLolos'])->name('lolos');
     Route::get('/dashboard', [DashboarController::class, 'index'])->name('dashboard');
@@ -23,6 +24,7 @@ Route::middleware(['auth'])->group(function (): void {
     Route::post('/cari_peserta', [PesertaController::class, 'cariPeserta'])->name('cari.jurusan');
     Route::resource('peserta', PesertaController::class);
 
+    Route::post('status/{id}', [PesertaController::class, 'updateStatus']);
     Route::middleware(['level:Administrator'])->group(function () {
 
         Route::resource('role', RolesController::class);

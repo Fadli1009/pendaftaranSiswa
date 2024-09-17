@@ -55,15 +55,28 @@
                                 @endif
 
                                 <td>
+                                    <!-- Tombol Detail selalu ditampilkan -->
                                     <a href="{{ route('peserta.show', $item->id) }}"
                                         class="btn btn-info btn-sm d-inline">Detail</a>
-                                    @if (auth()->user()->id_level == 2)
-                                        <a href="https://wa.me/{{ $item->nomorHp }}" target="_blank" class="btn btn-sm"
-                                            style="background-color: #25D366; color: #fff;">
-                                            <i class="bi bi-whatsapp"></i> WhatsApp
-                                        </a>
+
+                                    @if ($item->confirm == 1)
+                                        @if (auth()->user()->id_level == 2)
+                                            <span style="background-color: #25D366; color: #fff;" class="badge">Sudah
+                                                diinformasikan</span>
+                                        @endif
+                                        <!-- Jika status sudah diinformasikan, tampilkan badge -->
+                                    @else
+                                        <!-- Jika status belum diinformasikan, tampilkan tombol WhatsApp -->
+                                        @if (auth()->user()->id_level == 2)
+                                            <a href="https://wa.me/{{ $item->nomorHp }}" target="_blank" class="btn btn-sm"
+                                                style="background-color: #25D366; color: #fff;" id="cek"
+                                                data-id="{{ $item->id }}">
+                                                <i class="bi bi-whatsapp"></i> WhatsApp
+                                            </a>
+                                        @endif
                                     @endif
                                 </td>
+
                             </tr>
                         @endforeach
 
@@ -140,7 +153,8 @@
                         status: status
                     },
                     success: function(response) {
-                        console.log('Response:', response); // Log response for debugging
+                        console.log('Response:',
+                            response); // Log response for debugging
                         alert('Peserta berhasil diseleksi');
                     },
                     error: function(xhr) {
@@ -149,6 +163,28 @@
                     }
                 });
             });
+            $('#cek').on('click', function() {
+                // event.preventDefault();
+                var itemId = $(this).data('id');
+
+                $.ajax({
+                    url: `/status/${itemId}`,
+                    method: 'POST',
+                    data: {
+                        id: itemId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(res) {
+                        alert('Status peserta berhasil diupdate');
+                        location.reload();
+
+                        // Optionally, you might want to refresh the page or update the UI here
+                    },
+                    error: function(xhr) {
+                        alert('Terjadi kesalahan: ' + xhr.responseText);
+                    }
+                });
+            })
         });
     </script>
 @endsection

@@ -25,7 +25,8 @@ class Peserta extends Model
         'nomorHp',
         'email',
         'aktivasi_saat_ini',
-        'status'
+        'status',
+        'confirm'
     ];
 
     public function jurusan()
