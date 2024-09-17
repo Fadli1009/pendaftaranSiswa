@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('user_jurusans', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_level');
+            $table->unsignedBigInteger('id_jurusan');
+            $table->foreign('id_jurusan')->references('id')->on('jurusan')->onDelete('cascade');
             $table->foreign('id_level')->references('id')->on('roles');
             $table->timestamps();
         });

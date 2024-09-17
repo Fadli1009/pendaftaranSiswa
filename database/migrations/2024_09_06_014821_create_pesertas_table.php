@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('aktivasi_saat_ini', 100);
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
-            $table->foreign('id_jurusan')->references('id')->on('jurusan');
+            $table->foreign(columns: 'id_jurusan')->references('id')->on('jurusan')->onDelete('cascade');
             $table->foreign('id_gelombang')->references('id')->on('gelombang');
         });
     }
