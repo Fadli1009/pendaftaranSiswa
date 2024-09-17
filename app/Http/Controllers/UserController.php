@@ -45,7 +45,6 @@ class UserController extends Controller
             'id_jurusan.*' => 'exists:jurusan,id'
         ]);
         $val['password'] = Hash::make($val['password']);
-
         DB::beginTransaction();
         try {
             $user = User::create([

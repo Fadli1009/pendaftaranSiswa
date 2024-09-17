@@ -26,7 +26,8 @@ class PesertaController extends Controller
 
         if ($userLevel === 2) {
             $userJurusanIds = UserJurusan::where('id_user', $userId)->pluck('id_jurusan');
-            $peserta = Peserta::whereIn('id_jurusan', $userJurusanIds)->get();
+            $pesertas = Peserta::whereIn('id_jurusan', $userJurusanIds)->get();
+            $peserta = $pesertas->where('status', 1);
         } else {
             $peserta = Peserta::all();
         }

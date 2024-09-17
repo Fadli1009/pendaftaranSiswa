@@ -19,9 +19,20 @@
                         <span class="badge bg-info text-white">{{ $peserta->gelombang->nama_gelombang ?? '' }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>Keterangan:</strong>
+                        <span>
+                            @if ($peserta->status === 1)
+                                <span class="badge badge-success">Lolos</span>
+                            @else
+                                <span class="badge badge-danger">Tidak Lolos</span>
+                            @endif
+                        </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>Nama Lengkap:</strong>
                         <span>{{ $peserta->nama_lengkap ?? '' }}</span>
                     </li>
+
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <strong>NIK:</strong>
                         <span class="badge bg-info text-white">{{ $peserta->nik ?? '' }}</span>
@@ -66,6 +77,7 @@
                         <strong>Email:</strong>
                         <span>{{ $peserta->email ?? 'Tidak Ada' }}</span>
                     </li>
+
                 </ul>
             </div>
         </div>

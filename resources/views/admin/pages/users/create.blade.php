@@ -16,6 +16,11 @@
                         </ul>
                     </div>
                 @endif
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <div class="form-group">
                     <label for="nama" class="form-label">Nama Lengkap</label>
                     <input type="text" class="form-control" name="nama_lengkap" id="nama"
